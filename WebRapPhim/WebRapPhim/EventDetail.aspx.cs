@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class EventDetail : System.Web.UI.Page
+{
+    DataUtility data = new DataUtility();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Request.QueryString["id"] == null)
+        {
+            Response.Redirect("404.html");
+        }
+        else
+        {
+            int id = Convert.ToInt32(Request.QueryString["id"]);
+            Event ev = data.getOneEvent(id);
+            List<Event> events = new List<Event>();
+            events.Add(ev);
+            lvSuKien.DataSource = events;
+            DataBind();
+        }
+    }
+}
